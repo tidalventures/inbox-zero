@@ -22,6 +22,9 @@ overrides:
   "@types/react-dom": "19.2.4"
   "@xmldom/xmldom": "0.8.15"
   axios: "1.21.0"
+  effect: "3.22.1"
+  source-map-js: "1.2.2"
+  "zod@>=4.0.0 <5.0.0": "4.6.6"
   dompurify: "3.4.17"
   fast-xml-parser: "5.12.0"
   # One ioredis copy for BullMQ and @chat-adapter/state-ioredis. The adapter
@@ -38,7 +41,7 @@ overrides:
   # (CVE-2026-90711). 2.0.8 rejects those prefixes.
   proxy-addr: "2.0.8"
   prosemirror-model: "1.25.11"
-  prosemirror-view: "1.42.2"
+  prosemirror-view: "1.42.3"
   svelte: "5.55.5"
   # @actions/* and node-gyp resolve undici 6; other deps resolve undici 7.
   # 6.29.1 and 7.30.2 are the first patched releases for the undici advisories

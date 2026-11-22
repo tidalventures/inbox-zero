@@ -9,6 +9,20 @@ describe("isAllowedAuthSignupEmail", () => {
     expect(isAllowedAuthSignupEmail("user@example.com", {})).toBe(true);
   });
 
+  it("rejects an empty production allowlist", () => {
+    const options = { nodeEnv: "production" };
+    expect(isAllowedAuthSignupEmail("user@example.com", options)).toBe(false);
+    expect(() =>
+      assertAllowedAuthSignupEmail("user@example.com", options),
+    ).toThrowError("signup_not_allowed");
+  });
+
+  it("allows an empty development allowlist", () => {
+    expect(
+      isAllowedAuthSignupEmail("user@example.com", { nodeEnv: "development" }),
+    ).toBe(true);
+  });
+
   it("matches explicit emails case-insensitively", () => {
     expect(
       isAllowedAuthSignupEmail("Founder@Example.com", {

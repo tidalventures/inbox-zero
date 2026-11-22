@@ -138,7 +138,7 @@ FROM node:24-alpine AS runner
 WORKDIR /app
 
 # Install openssl for Prisma
-RUN apk add --no-cache openssl
+RUN apk add --no-cache openssl curl
 
 # Copy the standalone server output (contains node_modules subset + server.js)
 COPY --from=builder /app/apps/web/.next/standalone ./
