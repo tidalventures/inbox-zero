@@ -11,6 +11,7 @@ export function assertAllowedAuthSignupEmail(
   options: {
     allowedEmails?: readonly string[];
     allowedDomains?: readonly string[];
+    nodeEnv?: string;
   } = getAuthSignupPolicy(),
 ) {
   if (isAllowedAuthSignupEmail(email, options)) return;
@@ -23,6 +24,7 @@ export function isAllowedAuthSignupEmail(
   options: {
     allowedEmails?: readonly string[];
     allowedDomains?: readonly string[];
+    nodeEnv?: string;
   } = getAuthSignupPolicy(),
 ) {
   const normalizedEmail = normalizeEmail(email);
@@ -35,7 +37,8 @@ export function isAllowedAuthSignupEmail(
     .map(normalizeDomain)
     .filter(Boolean);
 
-  if (allowedEmails.length === 0 && allowedDomains.length === 0) return true;
+  if (allowedEmails.length === 0 && allowedDomains.length === 0)
+    return options.nodeEnv !== "production";
   if (allowedEmails.includes(normalizedEmail)) return true;
 
   const emailDomain = getEmailDomain(normalizedEmail);
@@ -44,6 +47,7 @@ export function isAllowedAuthSignupEmail(
 
 function getAuthSignupPolicy() {
   return {
+    nodeEnv: env.NODE_ENV,
     allowedEmails: env.AUTH_ALLOWED_EMAILS,
     allowedDomains: env.AUTH_ALLOWED_EMAIL_DOMAINS,
   };
